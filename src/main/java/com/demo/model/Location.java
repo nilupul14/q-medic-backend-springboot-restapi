@@ -6,6 +6,7 @@ public class Location {
     private String locationName;
     private Double latitude;
     private Double longitude;
+    private boolean isDeleted = false;
 
     public Integer getLocationId() {
         return locationId;
@@ -37,5 +38,13 @@ public class Location {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

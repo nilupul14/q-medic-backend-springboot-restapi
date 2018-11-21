@@ -21,12 +21,20 @@ public class Doctor {
 	private String phone;
 	@NotNull
 	private String doctorInfo;
-	@NotNull
 	@Lob
 	@Column(length=100000)
 	private byte[] image;
-	
-	
+
+	private boolean isDeleted = false;
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		isDeleted = deleted;
+	}
+
 	public Integer getDoctorId() {
 		return doctorId;
 	}

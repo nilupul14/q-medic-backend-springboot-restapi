@@ -1,13 +1,27 @@
 package com.demo.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "appointments")
 public class Appointment {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NotNull
 	private Integer appointmentId;
+	@NotNull
 	private String name;
+	@NotNull
 	private String age;
+	@NotNull
 	private String phone;
+	@NotNull
 	private String address;
+	@NotNull
 	private String doctor;
+	private boolean isDeleted = false;
 	
 	public Integer getAppointmentId() {
 		return appointmentId;
@@ -45,7 +59,12 @@ public class Appointment {
 	public void setDoctor(String doctor) {
 		this.doctor = doctor;
 	}
-	
-	
 
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		isDeleted = deleted;
+	}
 }

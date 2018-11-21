@@ -12,7 +12,7 @@ public interface AppointmentService {
 	 
 	 public Appointment addAppointment(Appointment appointment);
 	 
-	 public void updateAppointment(Appointment appointment);
+	 public Appointment updateAppointment(Appointment appointment);
 	 
 	 public void deleteAppointment(int id);
 }

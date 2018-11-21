@@ -4,18 +4,27 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "centres2")
+@Table(name = "centres")
 public class Centre {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotNull
 	private Integer centreId;
+	@NotNull
 	private String name;
+	@NotNull
 	private String email;
+	@NotNull
 	private String phone;
+	@NotNull
 	private String address;
+	@NotNull
 	private String centreInfo;
+	@Lob
+	@Column(length=100000)
+	private byte[] image;
+	private boolean isDeleted = false;
 
 	public Integer getCentreId() {
 		return centreId;
@@ -54,5 +63,19 @@ public class Centre {
 		this.centreInfo = centreInfo;
 	}
 
+	public byte[] getImage() {
+		return image;
+	}
 
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		isDeleted = deleted;
+	}
 }

@@ -2,7 +2,8 @@ package com.demo.service;
 
 import java.util.List;
 
-import com.demo.dao.DoctorDao;
+
+import com.demo.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,51 +13,34 @@ import com.demo.model.Doctor;
 public class DoctorServiceImpl implements DoctorService{
 
 	 @Autowired
-	 private DoctorDao doctorDao;
-
-//	 @Autowired
-//	 private DoctorRepository doctorRepository;
+	 private DoctorRepository doctorRepository;
 	
 	 @Override
 	 public List<Doctor> getAllDoctors() {
-	  return doctorDao.getAllDoctors();
+	  return doctorRepository.getAllDoctors();
 	 }
 
 	 @Override
 	 public Doctor findDoctorById(int id) {
-	  return doctorDao.findeDoctorById(id);
+	  return doctorRepository.findDoctorDoctorById(id);
 	 }
 
 	 @Override
 	 public Doctor addDoctor(Doctor doctor) {
-		 doctorDao.addDoctor(doctor);
-		 return doctor;
+		 return doctorRepository.save(doctor);
 	 }
 
 	 @Override
-	 public void updateDoctor(Doctor doctor) {
-		 doctorDao.updateDoctor(doctor);
+	 public Doctor updateDoctor(Doctor doctor) {
+		return doctorRepository.save(doctor);
 	 }
 
 	 @Override
 	 public void deleteDoctor(int id) {
-		 doctorDao.deleteDoctor(id);
+ 		 Doctor doctor = findDoctorById(id);
+ 		 doctor.setDeleted(true);
+ 		 doctorRepository.save(doctor);
+
 	 }
-
-//	 @Override
-//	 public Doctor addDoctor(String name, String doctorType, String email, String phone, String doctorInfo, byte[] image) {
-//
-//
-//		Doctor doctor = new Doctor();
-//		doctor.setName(name);
-//		doctor.setEmail(email);
-//		doctor.setPhone(phone);
-//		doctor.setDoctorType(doctorType);
-//		doctor.setDoctorInfo(doctorInfo);
-//		doctor.setImage(image);
-//
-//		return doctorRepository.save(doctor);
-//	 }
-
 
 }

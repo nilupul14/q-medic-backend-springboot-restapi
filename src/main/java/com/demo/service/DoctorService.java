@@ -13,9 +13,8 @@ public interface DoctorService {
 	 
 	 public Doctor addDoctor(Doctor doctor);
 	 
-	 public void updateDoctor(Doctor doctor);
+	 public Doctor updateDoctor(Doctor doctor);
 	 
 	 public void deleteDoctor(int id);
 
-//     Doctor addDoctor(String name, String doctorType, String email, String phone, String doctorInfo, byte[] image);
 }

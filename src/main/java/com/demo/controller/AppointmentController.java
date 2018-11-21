@@ -4,83 +4,65 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.demo.dto.AppointmentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.demo.model.Appointment;
 import com.demo.service.AppointmentServiceImpl;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("appointment")
 public class AppointmentController {
 
 	@Autowired
 	private AppointmentServiceImpl appointmentService;
 
-	//---------------------Get List----------------------------
+//------------------------------------list all------------------------------------------------------------------
 	@GetMapping("/list")
 	public List<Appointment> getAllAppointments() {
-		java.util.List<Appointment> list = appointmentService.getAllAppointments();
+		List<Appointment> list = appointmentService.getAllAppointments();
 		return list;
 	}
-	//------------------Get------------------------------------
+//------------------------------------one by one ------------------------------------------------------------------
 	@GetMapping("/list/{appointmentId}")
 	public Appointment findAppointmentById(@PathVariable int appointmentId) {
 		return appointmentService.findAppointmentById(appointmentId);
 	}
 
-	//---------------------Create------------------------------------
-	@PostMapping("/add")
-	public ResponseEntity<Void> addCustomer(@RequestBody Appointment newAppointment, UriComponentsBuilder builder){
-		Appointment appointment = appointmentService.addAppointment(newAppointment);
+//------------------------------------create------------------------------------------------------------------
+    @PostMapping("/add")
 
-		if(appointment == null) {
-			return ResponseEntity.noContent().build();
-		}
+    public String addCentre(@RequestBody AppointmentDTO appointment){
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/appointment/{id}").buildAndExpand(appointment.getAppointmentId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-	}
+        Appointment app = null;
 
-	//------------------Update------------------------
-	@PutMapping("/edit/")
-	public ResponseEntity<Appointment> updateDoctor(@RequestBody Appointment appointment){
+        Appointment apt = new Appointment();
+        apt.setName(appointment.getName());
+        apt.setAge(appointment.getAge());
+        apt.setPhone(appointment.getPhone());
+        apt.setAddress(appointment.getAddress());
+        apt.setDoctor(appointment.getDoctor());
+        app = appointmentService.addAppointment(apt);
 
-		Appointment app = appointmentService.findAppointmentById(appointment.getAppointmentId());
+        return "Created Success..!";
+    }
+//------------------------------------update------------------------------------------------------------------
 
-		if(app == null) {
-			return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
-		}
+    @PutMapping("/edit")
+    public Appointment updateAppointment(@RequestBody Appointment appointment) {
 
-		app.setName(appointment.getName());
-		app.setAge(appointment.getAge());
-		app.setPhone(appointment.getPhone());
-		app.setAddress(appointment.getAddress());
-		app.setDoctor(appointment.getDoctor());
+        return  appointmentService.updateAppointment(appointment);
+    }
 
-		appointmentService.updateAppointment(app);
-		return new ResponseEntity<Appointment>(app, HttpStatus.OK);
-	}
+//------------------------------------delete------------------------------------------------------------------
 
-	//---------------------Delete-------------------------
-
-	@DeleteMapping("/delete/{appointmentId}")
-	public ResponseEntity<Appointment> deleteAppointment(@PathVariable int appointmentId){
-		Appointment doc = appointmentService.findAppointmentById(appointmentId);
-
-		if(doc == null) {
-			return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
-		}
-
-		appointmentService.deleteAppointment(appointmentId);
-		return new ResponseEntity<Appointment>(HttpStatus.NO_CONTENT);
-	}
+    @DeleteMapping("/delete/{appointmentId}")
+    public String deleteAppointment(@PathVariable int appointmentId) {
+        appointmentService.deleteAppointment(appointmentId);
+        return "Delete Successfully";
+    }
 
 	//------------------Select doctor---------------
 	@ModelAttribute("doctorList")

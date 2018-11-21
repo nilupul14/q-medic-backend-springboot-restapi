@@ -2,41 +2,43 @@ package com.demo.service;
 
 import java.util.List;
 
+import com.demo.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.demo.dao.AppointmentDaoImpl;
 import com.demo.model.Appointment;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService{
 
 	 @Autowired
-	 private AppointmentDaoImpl appointmentDao;
-	
-	 @Override
-	 public List<Appointment> getAllAppointments() {
-	  return appointmentDao.getAllAppointments();
-	 }
+	 private AppointmentRepository appointmentRepository;
 
 	 @Override
-	 public Appointment findAppointmentById(int id) {
-	  return appointmentDao.findeAppointmentById(id);
-	 }
+     public List<Appointment> getAllAppointments() {
+         return appointmentRepository.getAllAppointments();
+     }
+
+     @Override
+     public Appointment findAppointmentById(int id) {
+        return appointmentRepository.findAppointmentAppointmentById(id);
+     }
 
 	 @Override
 	 public Appointment addAppointment(Appointment appointment) {
-		 appointmentDao.addAppointment(appointment);
+		 appointmentRepository.save(appointment);
 		 return appointment;
 	 }
 
 	 @Override
-	 public void updateAppointment(Appointment appointment) {
-		 appointmentDao.updateAppointment(appointment);
+	 public Appointment updateAppointment(Appointment appointment) {
+		 return appointmentRepository.save(appointment);
 	 }
 
-	 @Override
-	 public void deleteAppointment(int id) {
-		 appointmentDao.deleteAppointment(id);
-	 }
+     @Override
+     public void deleteAppointment(int id) {
+         Appointment appointment = findAppointmentById(id);
+         appointment.setDeleted(true);
+         appointmentRepository.save(appointment);
+     }
 }

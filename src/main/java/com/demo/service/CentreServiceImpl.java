@@ -2,41 +2,43 @@ package com.demo.service;
 
 import java.util.List;
 
+import com.demo.repository.CentreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.demo.dao.CentreDaoImpl;
 import com.demo.model.Centre;
 
 @Service
 public class CentreServiceImpl implements CentreService {
 
 	@Autowired
-	private CentreDaoImpl centreDao;
-	
+	private CentreRepository centreRepository;
+
 	 @Override
 	 public List<Centre> getAllCentres() {
-	  return centreDao.getAllCentres();
+	  return centreRepository.getAllCentres();
 	 }
 
 	 @Override
 	 public Centre findCentreById(int id) {
-	  return centreDao.findeCentreById(id);
+	  return centreRepository.findCentreCentreById(id);
 	 }
 
 	 @Override
 	 public Centre addCentre(Centre centre) {
-		 centreDao.addCentre(centre);
+		 centreRepository.save(centre);
 		 return centre;
 	 }
 
 	 @Override
-	 public void updateCentre(Centre centre) {
-		 centreDao.updateCentre(centre);
+	 public Centre updateCentre(Centre centre) {
+		return centreRepository.save(centre);
 	 }
 
 	 @Override
 	 public void deleteCentre(int id) {
-		 centreDao.deleteCentre(id);
+		 Centre centre = findCentreById(id);
+		 centre.setDeleted(true);
+		 centreRepository.save(centre);
 	 }
 }

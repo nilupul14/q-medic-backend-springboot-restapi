@@ -12,7 +12,7 @@ public interface CentreService {
 	 
 	 public Centre addCentre(Centre centre);
 	 
-	 public void updateCentre(Centre centre);
+	 public Centre updateCentre(Centre centre);
 	 
 	 public void deleteCentre(int id);
 }
