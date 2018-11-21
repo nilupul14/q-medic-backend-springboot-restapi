@@ -14,5 +14,5 @@ public interface CentreService {
 	 
 	 public Centre updateCentre(Centre centre);
 	 
-	 public void deleteCentre(int id);
+	 public Centre deleteCentre(int id);
 }

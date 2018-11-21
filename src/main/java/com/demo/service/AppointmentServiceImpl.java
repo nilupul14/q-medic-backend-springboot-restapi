@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.demo.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import com.demo.model.Appointment;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService{
@@ -35,6 +37,8 @@ public class AppointmentServiceImpl implements AppointmentService{
 		 return appointmentRepository.save(appointment);
 	 }
 
+    @Modifying
+    @Transactional
      @Override
      public void deleteAppointment(int id) {
          Appointment appointment = findAppointmentById(id);

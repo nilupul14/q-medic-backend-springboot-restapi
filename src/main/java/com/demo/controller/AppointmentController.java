@@ -58,8 +58,9 @@ public class AppointmentController {
 
 //------------------------------------delete------------------------------------------------------------------
 
-    @DeleteMapping("/delete/{appointmentId}")
-    public String deleteAppointment(@PathVariable int appointmentId) {
+    @CrossOrigin
+    @GetMapping("/delete")
+    public String deleteAppointment(@RequestParam("appointmentId") int appointmentId) {
         appointmentService.deleteAppointment(appointmentId);
         return "Delete Successfully";
     }

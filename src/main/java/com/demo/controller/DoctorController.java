@@ -72,9 +72,10 @@ public class DoctorController {
 
 //------------------------------------delete------------------------------------------------------------------
 
-    @DeleteMapping("/delete/{doctorId}")
-    public String deleteDoctor(@PathVariable int doctorId) {
+    @CrossOrigin
+    @GetMapping("/delete")
+    public String deleteDoctor(@RequestParam("doctorId")  int doctorId) {
         doctorService.deleteDoctor(doctorId);
-        return "Success";
+        return "Delete Successfully";
     }
 }

@@ -59,8 +59,9 @@ public class CentreController {
 
 //------------------------------------delete------------------------------------------------------------------
 
-	@DeleteMapping("/delete/{centreId}")
-	public String deleteCentre(@PathVariable int centreId) {
+	@CrossOrigin
+	@GetMapping("/delete")
+	public String deleteCentre(@RequestParam("centreId") int centreId) {
 		centreService.deleteCentre(centreId);
 		return "Delete Successfully";
 	}

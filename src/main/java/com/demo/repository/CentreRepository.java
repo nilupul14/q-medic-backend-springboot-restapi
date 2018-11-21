@@ -17,4 +17,5 @@ public interface CentreRepository extends JpaRepository<Centre,Long> {
     @Query("select c from Centre c where c.centreId =:id and c.isDeleted = false")
     Centre findCentreCentreById(@Param("id") int id);
 
+//    Centre deleteByCentreId(int id);
 }

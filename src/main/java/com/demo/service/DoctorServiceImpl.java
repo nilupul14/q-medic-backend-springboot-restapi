@@ -2,7 +2,7 @@ package com.demo.service;
 
 import java.util.List;
 
-
+//import com.demo.dao.DoctorDao;
 import com.demo.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,7 @@ public class DoctorServiceImpl implements DoctorService{
 	 @Override
 	 public Doctor updateDoctor(Doctor doctor) {
 		return doctorRepository.save(doctor);
+
 	 }
 
 	 @Override
